@@ -1,0 +1,4 @@
+node_modules/
+# dist/     commented out as this dir is served up for github pages. Actually github pages requires it to be named /docs
+
+.env
