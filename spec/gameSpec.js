@@ -42,6 +42,63 @@ describe('game', function() {
       expect (game.countAliveAdjacents(cell)).toBe(0);
     })
 
+    it('cell [1,4] default alive adjacent count is 1', function() {
+      cell = game.board[1][4];
+      expect (cell.countAliveAdjacents).toBe(1);
+    })
+
+    it('cell [0,0] alive adjacent count is 2', function() {
+      cell = game.board[0][0];
+      game.board[0][1].alive = true
+      game.board[1][1].alive = true
+      game.countAliveAdjacents(game.board[0][0])
+      expect (cell.countAliveAdjacents).toBe(2);
+    })
+    describe('game logic for board', function() {
+
+
+      it('cell [1,5] to be dead on next turn', function() {
+        cell = game.board[1][5];
+        expect (cell.nextGenerationAliveStatus).toBe(false);
+      })
+
+      it('cell [5,5] to remain alive on next turn', function() {
+        cell = game.board[5][5];
+        expect (cell.nextGenerationAliveStatus).toBe(true);
+      })
+
+      it('cell [0,0] to be dead on next turn', function() {
+        cell = game.board[0][0];
+        game.board[0][0].alive = true
+        game.board[1][0].alive = true
+        game.board[1][1].alive = true
+        game.board[0][1].alive = true
+        game.start()
+        expect (cell.nextGenerationAliveStatus).toBe(true);
+      })
+
+      it('cell [1,1] to be dead on next turn', function() {
+        cell = game.board[1][1];
+        game.board[1][1].alive = true
+        game.board[0][0].alive = true
+        game.board[1][0].alive = true
+        game.board[0][1].alive = true
+        game.board[0][2].alive = true
+        game.start()
+        expect (cell.nextGenerationAliveStatus).toBe(false);
+      })
+
+      it('dead cell [1,1] to come alive on next turn', function() {
+        cell = game.board[1][1];
+        game.board[1][1].alive = false
+        game.board[0][0].alive = true
+        game.board[0][1].alive = true
+        game.board[1][0].alive = true
+        game.start()
+        expect (cell.nextGenerationAliveStatus).toBe(true);
+      })
+    })
+
   });
 
     describe('cell', function() {
@@ -65,21 +122,7 @@ describe('game', function() {
         expect (JSON.stringify(cell.getAdjacents([0,0], cell.rows, cell.cols))).toBe(JSON.stringify([[1,0],[0,1],[1,1]]));
       })
 
-      it('cell [0,0] default alive adjacent count is 0', function() {
-        expect (cell.countAliveAdjacents).toBe(0);
-      })
 
-      it('cell [1,4] default alive adjacent count is 1', function() {
-        cell = game.board[1][4];
-        expect (cell.countAliveAdjacents).toBe(1);
-      })
-
-      it('cell [0,0] alive adjacent count is 2', function() {
-        game.board[0][1].alive = true
-        game.board[1][1].alive = true
-        game.countAliveAdjacents(game.board[0][0])
-        expect (cell.countAliveAdjacents).toBe(2);
-      })
 
     });
 

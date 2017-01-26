@@ -4,16 +4,16 @@ var Game = function(rows, cols){
   this.hello = 1;
 }
 
-
 Game.prototype.cycleThroughBoard = function(board) {
   
   for(var i=0; i < board.length - 1; i++){
       for(var j=0; j < board[0].length - 1; j++){
         this.countAliveAdjacents(board[i][j])
-        // set nex gen alive/dead
-
+        this.evaluateNextGeneration(board[i][j])
       }
   }
+  // set all live values
+  // increment a counter
 }
 
 // creates multi-dimensional array
@@ -31,9 +31,24 @@ Game.prototype.setUpBoard = function (rows, cols) {
   return arr;
 }
 
-Game.prototype.evaluateNextGeneration = () => {
-  // check each cells
+Game.prototype.evaluateNextGeneration = (cell) => {
 
+  switch(true) {
+    case (cell.countAliveAdjacents < 2 && cell.alive): 
+      cell.nextGenerationAliveStatus = false
+    break
+    case ((cell.countAliveAdjacents === 2 || cell.countAliveAdjacents === 3) && cell.alive): 
+      cell.nextGenerationAliveStatus = true
+    break
+    case (cell.countAliveAdjacents > 3 && cell.alive): 
+      cell.nextGenerationAliveStatus = false
+    break
+    case (cell.countAliveAdjacents === 3 && !cell.alive): 
+      cell.nextGenerationAliveStatus = true
+    break
+    default:
+      console.log('error with cases')
+  }
   // decide whether nex gen should be dead/alive
   // store that in nextGenerationAliveStatus
 }
