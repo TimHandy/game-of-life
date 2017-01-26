@@ -84,8 +84,60 @@ cell = {
 }
 
 
+board = [{isOn: false}, {isOn: false}, {isOn: false}]
+
+user clicked [1]
+
+board = [{isOn: false}, {isOn: true}, {isOn: false}]
+
+board[1].isOn === true 
+
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
+1 2 3 4 5 6 7 8 9 10
 
 
+Grid is a 3d array stored in state on the board component?
+
+For each space in the array create a Cell instance and insert to the array? Or just a 1 or 0 in the array? 
+
+Load up an intial random selection of live cells into state for first iteration via a createRandom type function in componentDidMount? 
+Render the array to screen by mapping it to divs? or table? other?
+
+On each iteration
+   For each array element (whether live or dead) in the start array
+       getNumberOfLiveNeighbours() = number of live neighbours (this seems a tricky task for above and below neighbours)
+       Switch statement: If getNumberOfLiveNeighbours === x then turn on/off based on the 4 rules by setting 'alive' attribute key to true... or just setting the grid postion to 0 or 1 in a new array? Should it be a new array so that we don't compare cells to cells that have just been changed already.
+
+       Re-render the view once all cells calculated and stored (store in a nextgen array and render that somehow?)
+       The new generation becomes the starting generation for the next iteration.
+
+
+
+Loop to generate next generation with an intervaltimer can then have a timer to stop the interval with clearinterval to pause?
+
+If using a class, what is the benefit there? What does it give us? What are the properties and methods on the class that would be useful?
+
+
+
+
+How do we hook that up to the actual view? How to render the array?
+
+
+
+If a cell (whether on or off) has exactly 2 or 3 on cells in the 8 cells surrounding it, then that cell becomes (or remains) on.
+       If an on cell has fewer than 2 cells surrounding it as described above, it becomes off.
+       If an on cell has more than 3 cells surrounding it, it becomes off.
+       
+
+Wikipedia:
+Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+Any live cell with two or three live neighbours lives on to the next generation.
+Any live cell with more than three live neighbours dies, as if by overpopulation.
+Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
 
 
