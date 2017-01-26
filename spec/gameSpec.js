@@ -11,7 +11,12 @@ describe('game', function() {
     beforeEach(function() {
       game = new Game(rows, cols);
       board = game.board
+      game.board[1][5].alive = true
+      game.board[5][5].alive = true
+      game.board[5][6].alive = true
+      game.board[6][6].alive = true
       game.start()
+      
     });
 
     it('should be an array', function() {

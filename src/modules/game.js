@@ -4,7 +4,7 @@ var Game = function(rows, cols){
   this.hello = 1;
 }
 
-Game.prototype.cycleThroughBoard = function(board) {
+Game.prototype.runNextGeneration = function(board) {
   
   for(var i=0; i < board.length - 1; i++){
       for(var j=0; j < board[0].length - 1; j++){
@@ -12,8 +12,20 @@ Game.prototype.cycleThroughBoard = function(board) {
         this.evaluateNextGeneration(board[i][j])
       }
   }
-  // set all live values
+  // set all live values equal to the nextGenerationAliveStatus values and then wipe the nextGenerationAliveStatus values
+  
+
   // increment a counter
+}
+
+Game.prototype.applyNextAliveState = function(board) {
+
+  for(var i=0; i < board.length - 1; i++){
+      for(var j=0; j < board[0].length - 1; j++){
+        board[i][j].alive = board[i][j].nextGenerationAliveStatus
+      }
+  }
+
 }
 
 // creates multi-dimensional array
@@ -29,6 +41,13 @@ Game.prototype.setUpBoard = function (rows, cols) {
       }
   }
   return arr;
+}
+
+Game.prototype.presets = function() {
+      this.board[1][5].alive = true
+      this.board[5][5].alive = true
+      this.board[5][6].alive = true
+      this.board[6][6].alive = true
 }
 
 Game.prototype.evaluateNextGeneration = (cell) => {
@@ -53,15 +72,16 @@ Game.prototype.evaluateNextGeneration = (cell) => {
   // store that in nextGenerationAliveStatus
 }
 
-// pre-populates board with alive cells and starts game 
+// pre-populates board with alive cells and starts game TODO: this function is not tested yet!!!
 Game.prototype.start = function() {
-  this.board[1][5].alive = true
-  this.board[5][5].alive = true
-  this.board[5][6].alive = true
-  this.board[6][6].alive = true
-  //evaluateNextGeneration(this.board)
-  var board = this.board
-  this.cycleThroughBoard(board)
+  this.presets()
+  this.runNextGeneration(this.board)
+  var self = this
+  setTimeout(function() {
+    self.applyNextAliveState(self.board)
+    self.runNextGeneration(self.board)
+    console.log(self.board[5][6].alive)
+  }, 1000)
 }
 
 Game.prototype.countAliveAdjacents = function(cell) {
@@ -70,6 +90,7 @@ Game.prototype.countAliveAdjacents = function(cell) {
   cell.countAliveAdjacents = result
   return result
 }
+
 
 //cell class
 var Cell = function(location, rows, cols){
