@@ -1,6 +1,8 @@
+import Cell from './cell.js'
+
 var Game = function (rows, cols) {
   this.board = this.setUpBoard(rows, cols);
-  this.pause = true;
+  this.pause = false;
   this.counter = 0
 }
 
@@ -74,7 +76,7 @@ Game.prototype.start = function () {
   this.runNextGeneration(this.board)
   var board = this.board
   var self = this
-  this.interval()
+  // this.interval()
 }
 
 Game.prototype.interval = function () {
@@ -100,3 +102,5 @@ Game.prototype.countAliveAdjacents = function (cell) {
   cell.countAliveAdjacents = result
   return result
 }
+
+module.exports = Game

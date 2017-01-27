@@ -18,17 +18,6 @@ class App extends React.Component {
   componentWillMount() {
     const game = new Game(10,10)
     game.start()
-    self = this
-    var interval = setInterval(function () {
-      console.log(self)
-      if (self.state.game.pause) {
-        clearInterval(interval);
-      }
-      self.state.game.applyNextAliveState(self.state.game.board)
-      self.state.game.runNextGeneration(self.state.game.board)
-      self.state.game.counter++ 
-      self.setState({ game: self.state.game })
-    }, 1000)
     this.setState({game: game})
   }
 
@@ -37,12 +26,11 @@ class App extends React.Component {
     this.setState({ game: this.state.game })
   }
 
-  resumeGame = () => {
-    this.state.game.pause = false
+  gameUpdate = () => {
     self = this
     var interval = setInterval(function () {
       console.log(self)
-      if (self.state.game.pause) {
+      if (self.pause) {
         clearInterval(interval);
       }
       self.state.game.applyNextAliveState(self.state.game.board)
@@ -61,7 +49,7 @@ class App extends React.Component {
               }}>
         <h1>App component</h1>
         <button onClick={this.pauseGame}>Pause Game</button>
-        <button onClick={this.resumeGame}>Resume Game</button>
+        <button onClick={this.gameUpdate}>Update Game</button>
         <p>Alive: {JSON.stringify(this.state.game.board[1][5].alive)}</p>
         <Controls />
         <Board />

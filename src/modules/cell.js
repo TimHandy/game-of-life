@@ -5,6 +5,7 @@ var Cell = function(location, rows, cols){
   this.nextGenerationAliveStatus = null
   this.rows = rows; this.cols = cols;
   this.location = location;
+  this.status = true
   this.adjacents = this.getAdjacents(location);
   this.countAliveAdjacents = null
 }
@@ -22,3 +23,5 @@ Cell.prototype.getAdjacents = function(cell) {
         adjacents = [[x-1,y],[x+1,y],[x,y+1],[x,y-1],[x-1,y-1],[x+1,y+1],[x-1,y+1],[x+1,y-1]]; 
     return adjacents.filter(this.isCellOnGrid.bind(this));
 }
+
+module.exports = Cell
