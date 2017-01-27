@@ -1,15 +1,22 @@
 'use strict'
 
 import React from 'react'
-import ReactDOM from 'react-dom'
-//import '../css/styles.scss'
+import '../css/styles.scss'
+import Controls from 'Controls'
+import Board from 'Board'
 
 class App extends React.Component {
-  render() {
-    return <h1>Hello</h1>;
+render() {
+      
+  return (
+    <div>
+      <h1>App component</h1>
+      <Controls />
+      <Board />
+    </div>
+
+    )
   }
 }
 
-
-ReactDOM.render(
-  <App/>, document.getElementById('app') )
+module.exports = App

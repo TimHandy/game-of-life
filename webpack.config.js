@@ -10,8 +10,8 @@ module.exports = {
   resolve: {
     root: __dirname,
     alias: {
-      AddRecipe: 'src/components/AddRecipe.jsx',
-      RecipeList: 'src/components/RecipeList.jsx'
+      Controls: 'src/components/Controls.jsx',
+      Board: 'src/components/Board.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },
