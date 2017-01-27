@@ -59,6 +59,7 @@ describe('game', function() {
       game.countAliveAdjacents(game.board[0][0])
       expect (cell.countAliveAdjacents).toBe(2);
     })
+
     describe('game logic for board', function() {
 
 
@@ -102,6 +103,7 @@ describe('game', function() {
         game.start()
         expect (cell.nextGenerationAliveStatus).toBe(true);
       })
+
     })
 
   });
