@@ -6,6 +6,7 @@ import '../css/styles.scss'
 import Controls from 'Controls'
 import Board from 'Board'
 import Game from '../modules/game.js'
+import {Button} from 'react-bootstrap'
 
 class App extends React.Component {
   constructor(props) {
@@ -16,19 +17,18 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    const game = new Game(10,10)
+    const game = new Game(30,30)
     game.start()
     self = this
-    var interval = setInterval(function () {
-      console.log(self)
-      if (self.state.game.pause) {
-        clearInterval(interval);
-      }
-      self.state.game.applyNextAliveState(self.state.game.board)
-      self.state.game.runNextGeneration(self.state.game.board)
-      self.state.game.counter++ 
-      self.setState({ game: self.state.game })
-    }, 1000)
+    // var interval = setInterval(function () {
+    //   if (self.state.game.pause) {
+    //     clearInterval(interval);
+    //   }
+    //   self.state.game.applyNextAliveState(self.state.game.board)
+    //   self.state.game.runNextGeneration(self.state.game.board)
+    //   self.state.game.counter++ 
+    //   self.setState({ game: self.state.game })
+    // }, 1000)
     this.setState({game: game})
   }
 
@@ -41,7 +41,6 @@ class App extends React.Component {
     this.state.game.pause = false
     self = this
     var interval = setInterval(function () {
-      console.log(self)
       if (self.state.game.pause) {
         clearInterval(interval);
       }
@@ -49,22 +48,20 @@ class App extends React.Component {
       self.state.game.runNextGeneration(self.state.game.board)
       self.state.game.counter++ 
       self.setState({ game: self.state.game })
-    }, 1000)
+    }, 100)
   }
 
   render() {
-    console.log(this.state.game.board[1][5].alive)
     return (
       <div style={{
                   width: '50%',
                   margin: '0 auto'
               }}>
-        <h1>App component</h1>
-        <button onClick={this.pauseGame}>Pause Game</button>
-        <button onClick={this.resumeGame}>Resume Game</button>
-        <p>Alive: {JSON.stringify(this.state.game.board[1][5].alive)}</p>
-        <Controls />
-        <Board />
+        <Controls pauseGame ={this.pauseGame} resumeGame ={this.resumeGame}/>
+        <br></br>
+        <p>Generation Count: {this.state.game.counter}</p>
+        <br></br>
+        <Board type="button" className="btn btn-default" board = {this.state.game.board}/>
       </div>
 
       )

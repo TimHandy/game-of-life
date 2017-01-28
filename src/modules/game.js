@@ -43,6 +43,21 @@ Game.prototype.setUpBoard = function (rows, cols) {
 }
 
 Game.prototype.presets = function () {
+  this.board[14][13].alive = true
+  this.board[14][14].alive = true
+  this.board[15][12].alive = true
+  this.board[15][13].alive = true
+  this.board[16][13].alive = true
+
+
+  this.board[0][1].alive = true
+  this.board[1][1].alive = true
+  this.board[2][1].alive = true
+  this.board[1][3].alive = true
+  // this.board[1][4].alive = true
+  this.board[2][2].alive = true
+  this.board[2][3].alive = true
+
   this.board[1][5].alive = true
   this.board[5][5].alive = true
   this.board[5][6].alive = true

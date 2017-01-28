@@ -1,10 +1,3 @@
-// * {
-//     border: 1px red dashed;
-// }
-
-// p {
-//     margin: 0;
-// }
 
 $link: darkslategrey;
 
@@ -124,4 +117,34 @@ a {
     #right-column {
         padding-left: 0%
     }
+}
+
+.btn-matrix > .btn:nth-child(30n+31) {
+  clear: left;
+  margin-left: 0;
+}
+.btn-matrix > .btn:nth-child(n+4) {
+  margin-top: -0px;
+}
+.btn-matrix > .btn:first-child {
+  border-bottom-left-radius: 0;
+}
+.btn-matrix > .btn:nth-child(30) {
+  border-top-right-radius: 4px !important;
+}
+.btn-matrix > .btn:nth-last-child(30) {
+  border-bottom-left-radius: 4px !important;
+}
+.btn-matrix > .btn:last-child {
+  border-top-right-radius: 0;
+}
+
+/* Decorations */
+.btn-matrix {
+  margin: 0px;
+}
+
+#matrix {
+  width: 10px !important;
+  height: 10px !important;
 }
