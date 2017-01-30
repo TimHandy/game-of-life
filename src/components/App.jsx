@@ -12,44 +12,65 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      cellsStatus: '',
+      pause: false,
+      counter: 0,
       game: ''
     }
   }
 
   componentWillMount() {
-    const game = new Game(30,30)
+    const game = new Game(50,50)
     game.start()
-    self = this
-    // var interval = setInterval(function () {
-    //   if (self.state.game.pause) {
-    //     clearInterval(interval);
-    //   }
-    //   self.state.game.applyNextAliveState(self.state.game.board)
-    //   self.state.game.runNextGeneration(self.state.game.board)
-    //   self.state.game.counter++ 
-    //   self.setState({ game: self.state.game })
-    // }, 1000)
-    this.setState({game: game})
+    var self = this
+    var interval = setInterval(function() {
+      if (self.state.pause) {
+        clearInterval(interval);
+        self.setState({
+          game: game
+        })
+      }
+      game.applyNextAliveState(game.board)
+      game.runNextGeneration(game.board)
+      self.setState({ 
+        cellsStatus: game.cellStatusArray(game.board),
+        counter: self.state.counter + 1
+         })
+    }, 10)
+    this.setState({
+      cellsStatus: game.cellStatusArray(game.board),
+      game: game
+    })
   }
 
   pauseGame = () => {
-    this.state.game.pause = true
-    this.setState({ game: this.state.game })
+    this.setState({
+      // cellsStatus: game.cellStatusArray(game.board),
+      pause: true
+      })
   }
 
-  resumeGame = () => {
-    this.state.game.pause = false
-    self = this
-    var interval = setInterval(function () {
-      if (self.state.game.pause) {
+  resumeGame = (cellsStatus) => {
+    this.state.pause = false
+
+    var self = this
+    var interval = setInterval(function() {
+      if (self.state.pause) {
         clearInterval(interval);
+        // self.setState({
+        //   game: game
+        // })
       }
       self.state.game.applyNextAliveState(self.state.game.board)
       self.state.game.runNextGeneration(self.state.game.board)
-      self.state.game.counter++ 
-      self.setState({ game: self.state.game })
-    }, 100)
+      self.setState({ 
+        cellsStatus: self.state.game.cellStatusArray(self.state.game.board),
+        counter: self.state.counter + 1
+         })
+    }, 10)
   }
+
+
 
   render() {
     return (
@@ -59,9 +80,9 @@ class App extends React.Component {
               }}>
         <Controls pauseGame ={this.pauseGame} resumeGame ={this.resumeGame}/>
         <br></br>
-        <p>Generation Count: {this.state.game.counter}</p>
+        <p>Generation Count: {this.state.counter}</p>
         <br></br>
-        <Board type="button" className="btn btn-default" board = {this.state.game.board}/>
+        <Board type="button" className="btn btn-default" cellsStatus={this.state.cellsStatus}/>
       </div>
 
       )

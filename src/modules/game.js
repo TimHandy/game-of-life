@@ -42,6 +42,17 @@ Game.prototype.setUpBoard = function (rows, cols) {
   return arr;
 }
 
+Game.prototype.cellStatusArray = function(board) {
+  var cells = []
+    for (var i = 0; i < board.length; i++) {
+      var cell = board[i];
+      for (var j = 0; j < cell.length; j++) {
+        cells.push(cell[j].alive);
+      }
+    }
+    return cells
+}
+
 Game.prototype.presets = function () {
   this.board[14][13].alive = true
   this.board[14][14].alive = true

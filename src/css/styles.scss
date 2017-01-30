@@ -119,7 +119,7 @@ a {
     }
 }
 
-.btn-matrix > .btn:nth-child(30n+31) {
+.btn-matrix > .btn:nth-child(50n+51) {
   clear: left;
   margin-left: 0;
 }
@@ -129,10 +129,10 @@ a {
 .btn-matrix > .btn:first-child {
   border-bottom-left-radius: 0;
 }
-.btn-matrix > .btn:nth-child(30) {
+.btn-matrix > .btn:nth-child(50) {
   border-top-right-radius: 4px !important;
 }
-.btn-matrix > .btn:nth-last-child(30) {
+.btn-matrix > .btn:nth-last-child(50) {
   border-bottom-left-radius: 4px !important;
 }
 .btn-matrix > .btn:last-child {
